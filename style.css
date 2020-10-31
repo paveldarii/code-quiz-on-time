@@ -1,0 +1,45 @@
+h2 {
+  text-align: left;
+}
+ul {
+  list-style: none;
+  text-align: center;
+}
+#choice1,
+#choice2,
+#choice3,
+#choice4 {
+  margin: 15px;
+  padding: 10px;
+  background-color: cornflowerblue;
+  color: white;
+}
+.container {
+  background-color: gold;
+  margin-top: 60px;
+  height: 400px;
+}
+
+#left-span {
+  margin-left: 10px;
+}
+#right-span {
+  float: right;
+  margin-right: 40px;
+}
+
+#question-background {
+  background-color: cornflowerblue;
+}
+
+#choice1:hover,
+#choice2:hover,
+#choice3:hover,
+#choice4:hover {
+  background-color: blue;
+}
+
+#answer-correctness {
+  color: rgb(238, 130, 130);
+  font-family: Comic Sans MS, Comic Sans, cursive;
+}
