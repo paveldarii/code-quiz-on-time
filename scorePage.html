@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +10,28 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body id="firstPage">
+<body class="scorePage">
     <p>
-    <span id="left-span">View Highscores</span>  
-    <span id="right-span"> Time: 75 </span>
+        <span id="left-span">View Highscores</span>
+        <span id="score-page-right-span"> </span>
     </p>
     <div class="container">
-        <h1>Coding Quiz Challenge</h1>
-        <p class="innerText">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
-            answers will penalize your score time by ten seconds!
-        </p>
-        <a href="quiz.html"><button class="btn btn-primary mb-2">Start Quiz</button></a>
+        <div class="row"><div class="col-12">
+            <h1>All done!</h1>
+        </div></div>
+        
+        <div class="col-12">
+            <p id="finalScore"></p>
+        </div>
+        <div id="initialsForm">
+            <form class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="inputInitials" class="sr-only">Enter Initials: </label>
+                    <input type="text" id="inputInitials" placeholder="Enter Initials">
+                    <button type="submit" id="scorePageSubmit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
     </div>
     <script src="script.js"></script>
@@ -33,3 +47,5 @@
 </body>
 
 </html>
+<!DOCTYPE html>
+<html lang="en">

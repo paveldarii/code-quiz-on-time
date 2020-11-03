@@ -1,10 +1,12 @@
 h2 {
   text-align: left;
 }
+
 ul {
   list-style: none;
   text-align: center;
 }
+
 #choice1,
 #choice2,
 #choice3,
@@ -14,8 +16,12 @@ ul {
   background-color: cornflowerblue;
   color: white;
 }
+#choice4 {
+  margin-bottom: 70px;
+}
 .container {
-  background-color: gold;
+  position: relative;
+  background: rgba(14, 63, 21, 0.05);
   margin-top: 60px;
   height: 400px;
 }
@@ -42,4 +48,58 @@ ul {
 #answer-correctness {
   color: rgb(238, 130, 130);
   font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+/* bellow are selectors regarding to index.html*/
+
+h1 {
+  padding-top: 40px;
+  text-align: center;
+}
+
+#firstPage button {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+#firstPage #right-span {
+  float: right;
+  margin-right: 40px;
+}
+
+#firstPage .innerText {
+  padding-left: 25%;
+  padding-right: 20%;
+}
+
+/* bellow are selectors for scorePage.html*/
+
+#score-page-right-span {
+  float: right;
+  margin-right: 40px;
+}
+.scorePage #finalScore {
+  text-align: center;
+}
+.scorePage #initialsForm {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: white;
+}
+/* bellow are selectors for highScoresPage.html*/
+
+.highscores #buttons {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: white;
 }
