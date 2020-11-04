@@ -73,9 +73,11 @@ if (window.location.href.indexOf("quiz.html") > -1) {
   var timeInterval = setInterval(function () {
     rightSpanEl.textContent = "Time: " + secondsInterval;
     secondsInterval--;
+    console.log(secondsInterval);
     if (i === quizInfoList.length) {
       window.open("scorePage.html", "_self");
       clearInterval(timeInterval);
+      localStorage.setItem("secondsInterval", secondsInterval);
     }
     if (secondsInterval < 1) {
       clearInterval(timeInterval);
@@ -120,19 +122,33 @@ if (window.location.href.indexOf("quiz.html") > -1) {
 var scorePageSubmitBtn = document.getElementById("scorePageSubmit");
 var initialsText = document.getElementById("inputInitials");
 var finalScoreEl = document.getElementById("finalScore");
+
 //bellow is scorePage.html code
 if (window.location.href.indexOf("scorePage.html") > -1) {
   // scorePage function
-  finalScoreEl.textContent = "Your final score is " + secondsInterval;
+  var finalScore = localStorage.getItem("secondsInterval");
+  finalScoreEl.textContent = "Your final score is " + finalScore;
+
+  rightSpanEl.textContent = "Time: " + finalScore;
   scorePageSubmitBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    localStorage.setItem(initialsText.value, secondsInterval);
+    localStorage.setItem(initialsText.value, finalScore);
     window.open("highScoresPage.html", "_self");
     ret;
   });
 }
 
+//bellow is highScoresPage.html
 var orderedListEl = document.getElementById("ordered-list");
+var clearHighscoresEl = document.getElementById("clearHighscores");
 ////bellow is highScoresPage.html code
 if (window.location.href.indexOf("highScoresPage.html") > -1) {
+  //next three lines are used to keep the time on the top right corner; then, we delete the data from localStorage
+  var finalScore = localStorage.getItem("secondsInterval");
+  rightSpanEl.textContent = "Time: " + finalScore;
+  localStorage.removeItem("secondsInterval");
+
+  clearHighscoresEl.addEventListener("click", function () {
+    localStorage.clear();
+  });
 }
