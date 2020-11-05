@@ -7,47 +7,48 @@ var choiceThreeEl = document.getElementById("choice3");
 var choiceFourEl = document.getElementById("choice4");
 var answerCorrectnessEl = document.getElementById("answer-correctness");
 var rightSpanEl = document.getElementById("right-span");
-var secondsInterval = 75;
+var secondsInterval = 74;
 var correctChoice; // e.g. "#choice1" "#choice2"
 var quizInfo1 = {
-  question: "How are you?",
-  choice1: "good ",
-  choice2: "fine",
-  choice3: "ok",
-  choice4: "amazing",
-  rightChoice: "#choice1",
+  question: "Inside which HTML element do we put the JavaScript?",
+  choice1: "<javascript>",
+  choice2: "<js>",
+  choice3: "<scripting",
+  choice4: "<script>",
+  rightChoice: "#choice4",
 };
 var quizInfo2 = {
-  question: "How you feel?",
-  choice1: "good",
-  choice2: "fine",
-  choice3: "ok",
-  choice4: "amazing",
+  question:
+    "What is the correct JavaScript syntax to change the content of the HTML element below? <p id='demo'>This is a demonstration.</p>",
+  choice1: "document.getElementById('demo').innerHTML ='Hello World!';",
+  choice2: "#demo.innerHTML = 'Hello World';",
+  choice3: "document.getElement('p').innerHTML = 'Hello World!'",
+  choice4: "document.getElementByName('p').innerHTML = 'Hello World';",
   rightChoice: "#choice1",
 };
 var quizInfo3 = {
-  question: "How is everything?",
-  choice1: "good",
-  choice2: "fine",
-  choice3: "ok",
-  choice4: "amazing",
-  rightChoice: "#choice1",
+  question: "How do you write 'Hello World' in an alert box?",
+  choice1: "console.log('Hello World');",
+  choice2: "alertBox('Hello World');",
+  choice3: "alert('Hello World');",
+  choice4: "msgBox('Hello World');",
+  rightChoice: "#choice3",
 };
 var quizInfo4 = {
-  question: "How do you enjoy?",
-  choice1: "good",
-  choice2: "fine",
-  choice3: "ok",
-  choice4: "amazing",
-  rightChoice: "#choice1",
+  question: "What is the correct way to write a JavaScript array?",
+  choice1: "var colors = (1:'red', 2:'green', 3: 'blue');",
+  choice2: "var colors = 1 = ('red'), 2=('green'), 3=('blue');",
+  choice3: "var colors = ['red', 'green', 'blue'];",
+  choice4: "var colors = 'red', 'green', 'blue';",
+  rightChoice: "#choice3",
 };
 var quizInfo5 = {
-  question: "How do you eat?",
-  choice1: "good",
-  choice2: "fine",
-  choice3: "ok",
-  choice4: "amazing",
-  rightChoice: "#choice1",
+  question: "How do you find the number with the highest value of x and y?",
+  choice1: "Math.ceil(x, y)",
+  choice2: "Math.max(x, y)",
+  choice3: "top(x, y)",
+  choice4: "ceil(x, y)",
+  rightChoice: "#choice2",
 };
 var quizInfoList = [quizInfo1, quizInfo2, quizInfo3, quizInfo4, quizInfo5];
 var totalPoints = 0;
@@ -73,14 +74,13 @@ if (window.location.href.indexOf("quiz.html") > -1) {
   var timeInterval = setInterval(function () {
     rightSpanEl.textContent = "Time: " + secondsInterval;
     secondsInterval--;
-    console.log(secondsInterval);
+
     if (i === quizInfoList.length) {
       window.open("scorePage.html", "_self");
       clearInterval(timeInterval);
       localStorage.setItem("secondsInterval", secondsInterval);
     }
     if (secondsInterval < 1) {
-      clearInterval(timeInterval);
       rightSpanEl.textContent = "No time remaining!";
     }
   }, 1000);
@@ -106,10 +106,19 @@ if (window.location.href.indexOf("quiz.html") > -1) {
         quizInfoList[i].rightChoice
       );
     }
+
     if (event.target.matches(correctChoice)) {
       answerCorrectnessEl.textContent = "Correct!";
+      var timeout = window.setTimeout(function () {
+        answerCorrectnessEl.textContent = "";
+        clearInterval(timeout);
+      }, 1500);
     } else {
-      answerCorrectnessEl.textContent = "Wrong!";
+      answerCorrectnessEl.textContent = "Incorrect!";
+      var timeout = window.setTimeout(function () {
+        answerCorrectnessEl.textContent = "";
+        clearInterval(timeout);
+      }, 1500);
       if (secondsInterval < 10) {
         secondsInterval = 0;
       }
@@ -132,9 +141,13 @@ if (window.location.href.indexOf("scorePage.html") > -1) {
   rightSpanEl.textContent = "Time: " + finalScore;
   scorePageSubmitBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    localStorage.setItem(initialsText.value, finalScore);
-    window.open("highScoresPage.html", "_self");
-    ret;
+
+    if (!isNaN(initialsText.value) || !isNaN(parseInt(initialsText.value))) {
+      alert("Enter initials to continue!");
+    } else {
+      localStorage.setItem(initialsText.value.toUpperCase(), finalScore);
+      window.open("highScoresPage.html", "_self");
+    }
   });
 }
 
@@ -149,12 +162,38 @@ if (window.location.href.indexOf("highScoresPage.html") > -1) {
   localStorage.removeItem("secondsInterval");
 
   //next lines is to access all data from local storage
-  function displayStorage() {
-    var archive = [];
+  var orderedArchive = [];
+  function sortLocalStorage() {
+    var localStorageValues = [];
     for (var i = 0; i < localStorage.length; i++) {
-      archive[i] = localStorage.getItem(localStorage.key(i));
+      localStorageValues[i] = localStorage.getItem(localStorage.key(i));
+    }
+    //bellow is descendent sorting of the numbers
+    localStorageValues.sort((a, b) => b - a);
+    console.log(localStorageValues);
+
+    // Bellow is process of making the list ready for display
+    for (var i = 0; i < localStorageValues.length; i++) {
+      for (var j = 0; j < localStorage.length; j++) {
+        // conditional bellow should work just when the value is not repeating
+        if (
+          localStorage.getItem(localStorage.key(j)) === localStorageValues[i] &&
+          localStorage.getItem(localStorage.key(j)) !==
+            localStorageValues[i - 1]
+        ) {
+          orderedArchive.push(
+            localStorage.key(j) + ": " + localStorageValues[i]
+          );
+        }
+      }
+    }
+  }
+  //display Highscore List Function is bellow
+  function displayHighscore() {
+    sortLocalStorage();
+    for (var i = 0; i < orderedArchive.length; i++) {
       var newLiEl = document.createElement("li");
-      newLiEl.textContent = localStorage.key(i) + ": " + archive[i];
+      newLiEl.textContent = orderedArchive[i];
       newLiEl.setAttribute(
         "style",
         "background-color: cornflowerblue; margin:10px; width: 40%; padding-left:5px;"
@@ -163,7 +202,7 @@ if (window.location.href.indexOf("highScoresPage.html") > -1) {
     }
   }
   // calling the function above
-
+  displayHighscore();
   clearHighscoresEl.addEventListener("click", function () {
     localStorage.clear();
     window.open("highScoresPage.html", "_self");

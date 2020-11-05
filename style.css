@@ -1,4 +1,4 @@
-h2 {
+h3 {
   text-align: left;
 }
 
@@ -13,16 +13,13 @@ ul {
   margin: 15px;
   padding: 10px;
   background-color: cornflowerblue;
-  color: white;
 }
-#choice4 {
-  margin-bottom: 70px;
-}
+
 .container {
   position: relative;
   background: rgba(14, 63, 21, 0.05);
   margin-top: 60px;
-  height: 400px;
+  height: 450px;
 }
 
 #left-span {
@@ -54,6 +51,10 @@ ul {
 h1 {
   padding-top: 40px;
   text-align: center;
+}
+
+#firstPage a {
+  text-decoration: none;
 }
 
 #firstPage button {
