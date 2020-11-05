@@ -148,7 +148,24 @@ if (window.location.href.indexOf("highScoresPage.html") > -1) {
   rightSpanEl.textContent = "Time: " + finalScore;
   localStorage.removeItem("secondsInterval");
 
+  //next lines is to access all data from local storage
+  function displayStorage() {
+    var archive = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      archive[i] = localStorage.getItem(localStorage.key(i));
+      var newLiEl = document.createElement("li");
+      newLiEl.textContent = localStorage.key(i) + ": " + archive[i];
+      newLiEl.setAttribute(
+        "style",
+        "background-color: cornflowerblue; margin:10px; width: 40%; padding-left:5px;"
+      );
+      orderedListEl.appendChild(newLiEl);
+    }
+  }
+  // calling the function above
+
   clearHighscoresEl.addEventListener("click", function () {
     localStorage.clear();
+    window.open("highScoresPage.html", "_self");
   });
 }

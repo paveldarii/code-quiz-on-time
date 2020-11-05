@@ -6,7 +6,6 @@ ul {
   list-style: none;
   text-align: center;
 }
-
 #choice1,
 #choice2,
 #choice3,
@@ -95,11 +94,15 @@ h1 {
 }
 /* bellow are selectors for highScoresPage.html*/
 
-.highscores #buttons {
+ol,
+li {
+  margin-left: 10px;
+  padding: 0;
+}
+#center-content {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  color: white;
 }
