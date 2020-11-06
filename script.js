@@ -13,7 +13,7 @@ var quizInfo1 = {
   question: "Inside which HTML element do we put the JavaScript?",
   choice1: "<javascript>",
   choice2: "<js>",
-  choice3: "<scripting",
+  choice3: "<scripting>",
   choice4: "<script>",
   rightChoice: "#choice4",
 };
@@ -51,9 +51,9 @@ var quizInfo5 = {
   rightChoice: "#choice2",
 };
 var quizInfoList = [quizInfo1, quizInfo2, quizInfo3, quizInfo4, quizInfo5];
-var totalPoints = 0;
 //bellow is code regarding quiz.html page
 if (window.location.href.indexOf("quiz.html") > -1) {
+  var totalPoints = 0;
   var i = 0; // i is used as a index to access the info inside the list
   function generateQuiz(
     quizQuestion,
@@ -95,6 +95,24 @@ if (window.location.href.indexOf("quiz.html") > -1) {
   );
 
   choicesEl.addEventListener("click", function (event) {
+    if (event.target.matches(correctChoice)) {
+      answerCorrectnessEl.textContent = "Correct!";
+      var timeout = window.setTimeout(function () {
+        answerCorrectnessEl.textContent = "";
+        clearInterval(timeout);
+      }, 1500);
+    } else {
+      answerCorrectnessEl.textContent = "Incorrect!";
+      timeout = window.setTimeout(function () {
+        answerCorrectnessEl.textContent = "";
+        clearInterval(timeout);
+      }, 1500);
+      if (secondsInterval < 10) {
+        secondsInterval = 0;
+      } else {
+        secondsInterval = secondsInterval - 10;
+      }
+    }
     if (event.target.matches("li") && i < quizInfoList.length) {
       i++;
       generateQuiz(
@@ -106,37 +124,22 @@ if (window.location.href.indexOf("quiz.html") > -1) {
         quizInfoList[i].rightChoice
       );
     }
-
-    if (event.target.matches(correctChoice)) {
-      answerCorrectnessEl.textContent = "Correct!";
-      var timeout = window.setTimeout(function () {
-        answerCorrectnessEl.textContent = "";
-        clearInterval(timeout);
-      }, 1500);
-    } else {
-      answerCorrectnessEl.textContent = "Incorrect!";
-      var timeout = window.setTimeout(function () {
-        answerCorrectnessEl.textContent = "";
-        clearInterval(timeout);
-      }, 1500);
-      if (secondsInterval < 10) {
-        secondsInterval = 0;
-      }
-      secondsInterval = secondsInterval - 10;
-    }
   });
 }
-
 // bellow are scorePage.html variables
 var scorePageSubmitBtn = document.getElementById("scorePageSubmit");
 var initialsText = document.getElementById("inputInitials");
 var finalScoreEl = document.getElementById("finalScore");
-
 //bellow is scorePage.html code
 if (window.location.href.indexOf("scorePage.html") > -1) {
   // scorePage function
   var finalScore = localStorage.getItem("secondsInterval");
-  finalScoreEl.textContent = "Your final score is " + finalScore;
+  if (finalScore < 0 || finalScore === null) {
+    finalScore = 0;
+    finalScoreEl.textContent = "Your final score is " + finalScore;
+  } else {
+    finalScoreEl.textContent = "Your final score is " + finalScore;
+  }
 
   rightSpanEl.textContent = "Time: " + finalScore;
   scorePageSubmitBtn.addEventListener("click", function (event) {
@@ -150,8 +153,7 @@ if (window.location.href.indexOf("scorePage.html") > -1) {
     }
   });
 }
-
-//bellow is highScoresPage.html
+//bellow are highScoresPage.html var
 var orderedListEl = document.getElementById("ordered-list");
 var clearHighscoresEl = document.getElementById("clearHighscores");
 ////bellow is highScoresPage.html code
